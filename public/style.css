@@ -1,0 +1,189 @@
+/* Font */
+@import url("https://use.typekit.net/rqx6tjw.css");
+
+/* Housekeeping */
+
+*{
+    box-sizing: border-box;
+}
+
+a{
+    text-decoration: none;
+    color: black;
+}
+
+img{
+    width: auto;
+    height: 100%;
+}
+
+h1{
+    font-family: acumin-variable, sans-serif;
+    font-variation-settings: "slnt" 0, "wdth" 100, "wght" 500;
+}
+
+h2{
+    font-family: acumin-variable, sans-serif;
+    font-variation-settings: "slnt" 0, "wdth" 100, "wght" 500;
+}
+
+h3{
+    font-family: acumin-variable, sans-serif;
+    font-variation-settings: "slnt" 0, "wdth" 100, "wght" 500;
+}
+
+p{
+    font-family: acumin-variable, sans-serif;
+    font-variation-settings: "slnt" 0, "wdth" 100, "wght" 300;
+}
+
+form{
+    width: 85%;
+}
+
+input{
+    margin-bottom: 1rem;
+    height: 2rem;
+    width: 100%;
+    border: solid black 2px;
+    border-radius: 0;
+}
+
+label{
+    font-family: acumin-variable, sans-serif;
+    font-variation-settings: "slnt" 0, "wdth" 100, "wght" 300;
+}
+
+button{
+    background-color: white;
+    border: solid black 2px;
+    border-radius: 0;
+}
+
+button:hover{
+    background-color: black;
+    color: white;
+    transition: 0.1s ease-in-out;
+}
+
+
+/* Header */
+
+header{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 6rem;
+    gap: 2rem;
+}
+
+#title{
+    height: 3rem;
+}
+
+nav{
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    height: 2rem;
+}
+
+.nav-button{
+    font-family: acumin-variable, sans-serif;
+    font-variation-settings: "slnt" 0, "wdth" 100, "wght" 500;
+    transition: 0.1s ease-in-out;
+}
+
+.nav-button:hover{
+
+    font-variation-settings: "slnt" 0, "wdth" 100, "wght" 700;
+    transform: scale(1.15);
+    border-bottom: solid black 2px;
+}
+
+
+/* Body */
+
+#body{
+    display: flex;
+    margin: 4rem 2rem 0 2rem;
+    gap: 1rem;
+}
+
+#index-body{
+    margin-top: 15rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.data-entry{
+    width: 30%;
+    border-right: solid black 4px;
+}
+
+.data-display{
+    width: 100%;
+}
+
+/* Data Entry */
+
+.submit-button-container{
+    width: 100%;
+    display: flex;
+    justify-content: right;
+}
+
+
+/* Data Display */
+
+.title-row{
+    display: flex;
+}
+
+.row{
+    display: flex;
+    border-top: solid black 2px;
+}
+
+.small-row-item{
+    width: 10rem;
+}
+
+.medium-row-item{
+    width: 12rem;
+}
+
+.large-row-item{
+    width: 20rem;
+}
+
+.extra-large-row-containter{
+    width: 30rem;
+}
+
+.extra-large-row-item{
+    display: flex;
+    width: 30rem;
+}
+
+.button-container{
+    margin-left: auto;
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    margin-right: 2rem;
+    gap: 1rem;
+}
+
+.edit-button{
+    height: 1.5rem;
+}
+
+.delete-button{
+    height: 1.5rem;
+}
+
+.total{
+    margin-top: auto;
+}

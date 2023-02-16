@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel= "stylesheet" href="style.css">
+    <title>Sales</title>
+</head>
+<header>
+    <div id="title">
+        <a href="index.html">
+            <img src="assets/cag-logo.svg">
+        </a>
+    </div>
+    <nav>
+        <div class="nav-button">
+            <a href= "artists.html">Artists</a>
+        </div>
+        <div class="nav-button">
+            <a href= "artwork.html">Artwork</a>
+        </div>
+        <div class="nav-button">
+            <a href= "frames.html">Frames</a>
+        </div>
+        <div class="nav-button">
+            <a href= "patrons.html">Patrons</a>
+        </div>
+        <div class="nav-button">
+            <a href= "sales.html">Sales</a>
+        </div>
+    </nav>
+</header>
+<div id="body">
+    <div class="data-entry">
+        <div class="datat-title">
+            <h2>Create Entry</h2>
+        </div>
+        <form action="">
+            <label for="patron">Patron</label><br>
+            <input type="text" name="patron"><br>
+
+            <label for="date">Date</label><br>
+            <input type="text" name="date"><br>
+
+            <label for="artworks">Artworks (comma seperate)</label><br>
+            <input type="text" name="artworks"><br>
+
+            <label for="frames">Frames (comma seperate)</label><br>
+            <input type="text" name="frames"><br>
+
+            <div class="submit-button-container">
+                <button id="submitButton">Submit</button>
+            </div>
+        </form>
+    </div>
+    <div class="data-display">
+        <h2>Sales</h2>
+        <div class="title-row">
+            <div class="medium-row-item">
+                <h3>Patron</h3>
+            </div>
+            <div class="small-row-item">
+                <h3>Date</h3>
+            </div>
+            <div class="large-row-item">
+                <h3>Items</h3>
+            </div>
+            <div class="small-row-item">
+                <h3>Price</h3>
+            </div>
+            <div class="small-row-item">
+                <h3>Total</h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="medium-row-item">
+                <p>Hunter Cram</p>
+            </div>
+            <div class="small-row-item">
+                <p>1/2/2023</p>
+            </div>
+            <div class="extra-large-row-container">
+                <div class="extra-large-row-item">
+                    <div class="large-row-item">
+                        <p>Fishnets</p>
+                    </div>
+                    <div class="small-row-item">
+                        <p>$5000</p>
+                    </div>
+                </div>
+                <div class="extra-large-row-item">
+                    <div class="large-row-item">
+                        <p>Otter</p>
+                    </div>
+                    <div class="small-row-item">
+                        <p>$300</p>
+                    </div>
+                </div>
+                <div class="extra-large-row-item">
+                    <div class="large-row-item">
+                        <p>27x40 Frame</p>
+                    </div>
+                    <div class="small-row-item">
+                        <p>$40</p>
+                    </div>
+                </div>
+                <div class="extra-large-row-item">
+                    <div class="large-row-item">
+                        <p>8.5x11 Frame</p>
+                    </div>
+                    <div class="small-row-item">
+                        <p>$20</p>
+                    </div>
+                </div>
+            </div>
+            <div class="small-row-item total">
+                <p>$5360</p>
+            </div>
+            <div class="button-container">
+                <button class="edit-button">Update</button>
+                <button class="delete-button">Delete</button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="medium-row-item">
+                <p>Connor Kealey</p>
+            </div>
+            <div class="small-row-item">
+                <p>12/20/2022</p>
+            </div>
+            <div class="extra-large-row-container">
+                <div class="extra-large-row-item">
+                    <div class="large-row-item">
+                        <p>Royal Frog</p>
+                    </div>
+                    <div class="small-row-item">
+                        <p>$10000</p>
+                    </div>
+                </div>
+                <div class="extra-large-row-item">
+                    <div class="large-row-item">
+                        <p>10x10 Frame</p>
+                    </div>
+                    <div class="small-row-item">
+                        <p>$25</p>
+                    </div>
+                </div>
+            </div>
+            <div class="small-row-item total">
+                <p>$10025</p>
+            </div>
+            <div class="button-container">
+                <button class="edit-button">Update</button>
+                <button class="delete-button">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
+</html>
