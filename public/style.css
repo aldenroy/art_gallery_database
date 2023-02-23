@@ -147,7 +147,7 @@ nav{
 }
 
 .small-row-item{
-    width: 10rem;
+    width: 9rem;
 }
 
 .medium-row-item{
@@ -186,4 +186,18 @@ nav{
 
 .total{
     margin-top: auto;
+}
+
+.red-dot-container{
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.red-dot{
+    width: 0.75rem;
+    height: 0.75rem;
+    background-color: red;
+    border-radius: 50%;
+    margin-left: 0.8rem;
 }
