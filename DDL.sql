@@ -33,10 +33,10 @@ CREATE OR REPLACE TABLE Artworks
     price int NOT NULL,
     medium varchar(45) NOT NULL,
     dimensions varchar(45) NOT NULL,
-    transaction_id int,
+    transaction_id int NULL,
     description varchar(500),
     PRIMARY KEY (artwork_id),
-    FOREIGN KEY (artist_id) REFERENCES Patrons(patron_id),
+    FOREIGN KEY (artist_id) REFERENCES Patrons(patron_id) ON DELETE CASCADE,
     FOREIGN KEY (transaction_id) REFERENCES Transactions(transaction_id)
 );
 
