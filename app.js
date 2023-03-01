@@ -1,59 +1,73 @@
-/* 
-    SETUP
-*/
-// Express
-var express = require('express');   // We are using the express library for the web server
-var app     = express();            // We need to instantiate an express object to interact with the server in our code
-PORT        = 15646;                 // Set a port number at the top so it's easy to change in the future
-// Database
-var db = require('./db-connector')
+var express = require('express');
+var app = express();
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
+app.use(express.static('public'))
+PORT = 15646;
 
-/* 
-    ROUTES
-*/
-app.get('/', function(req, res)
-    {
-        // Define our queries
-        query1 = 'DROP TABLE IF EXISTS diagnostic;';
-        query2 = 'CREATE TABLE diagnostic(id INT PRIMARY KEY AUTO_INCREMENT, text VARCHAR(255) NOT NULL);';
-        query3 = 'INSERT INTO diagnostic (text) VALUES ("MySQL is working!")';
-        query4 = 'SELECT * FROM diagnostic;';
+//set up database file from connector
+var db = require('./db-connector.js');
 
-        // Execute every query in an asynchronous manner, we want each query to finish before the next one starts
 
-        // DROP TABLE...
-        db.pool.query(query1, function (err, results, fields){
+var exphbs = require('express-handlebars');
+const { query } = require('express');
+app.engine('.hbs', exphbs.engine({
+    extname: ".hbs"
+}));
+app.set('view engine', '.hbs');
 
-            // CREATE TABLE...
-            db.pool.query(query2, function(err, results, fields){
+app.use(express.static('public'));
 
-                // INSERT INTO...
-                db.pool.query(query3, function(err, results, fields){
+//render index
+app.get('/', function (req, res) {
+    res.render('index');
+});
 
-                    // SELECT *...
-                    db.pool.query(query4, function(err, results, fields){
+app.get('/patrons', function (req, res) {
+    let query1 = "SELECT patron_id, first_name, last_name, email, address, is_artist FROM Patrons;";
+    db.pool.query(query1, function (error, rows, fields) {
+        res.render('patrons', { data: rows });
+    })
+});
 
-                        // Send the results to the browser
-                        let base = "<h1>MySQL Results:</h1>"
-                        res.send(base + JSON.stringify(results));
-                    });
-                });
-            });
-        });
+app.post('/add-patron-set-form', function (req, res) {
+    let data = req.body;
+    let query1 = `INSERT INTO Patrons (first_name, last_name, email, address) \
+                    VALUES ('${data.inputFirstName}', '${data.inputLastName}', '${data.inputEmail}', '${data.inputAddress}')`
+    db.pool.query(query1, function (error, rows, fields) {
+        if (error) {
+            if (error.code === 'ER_DUP_ENTRY') {
+                res.sendStatus(401);
+            }
+            else {
+                console.log(error);
+                res.sendStatus(400);
+            }
+        }
+        else {
+            let query2 = 'SELECT patron_id, first_name, last_name, email, address, is_artist FROM Patrons';
+            db.pool.query(query2, function (error, rows, fields) {
+                if (error) {
+                    console.log(error);
+                    res.sendStatus(400);
+                }
+                else {
+                    res.send(rows);
+                }
+            })
+        }
     });
+});
 
-//The same applies to each of the nested db.pool.query() calls. Query is a method of a pool instance. 
-//So in this case, a query will be run using a connection from the pool we created with the credentials we provided in db-connector.js.
 
-//In order to send a response back to the browser that is visiting our application we need to use the send(), sendStatus(), 
-//render() or redirect() calls of the res instance. These are standard functions of a res (response) object defined by ExpressJS. 
-//The send() call we use sends plain text back to the client, so if there is any formatting (HTML) that needs to be sent, 
-//it will be on us to specify as such. The render() call
-//leverages templates which are not necessary for such a trivial response, but will definitely have utility in later assignments. 
 
-/* 
-    LISTENER
-*/
-app.listen(PORT, function(){            // This is the basic syntax for what is called the 'listener' which receives incoming requests on the specified PORT.
+
+
+
+
+
+
+
+app.listen(PORT, function () {
     console.log('Express started on http://localhost:' + PORT + '; press Ctrl-C to terminate.')
 });
