@@ -1,1 +1,57 @@
-<h1>Artists</h1>
+<div id="body">
+    <div class="data-entry">
+        <div class="datat-title">
+            <h2>Create Entry</h2>
+        </div>
+        <form action="">
+            <label for="first-name">First Name</label><br>
+            <input type="text" name="first-name"><br>
+
+            <label for="last-name">Last Name</label><br>
+            <input type="text" name="last-name"><br>
+
+            <label for="email">Email</label><br>
+            <input type="text" name="email"><br>
+
+            <label for="address">Address</label><br>
+            <input type="text" name="Address"><br>
+
+            <div class="submit-button-container">
+                <button id="submitButton">Submit</button>
+            </div>
+        </form>
+    </div>
+    <div class="data-display">
+        <div class="data-display">
+            <h2>Artists</h2>
+            <div class="title-row">
+                <div class="medium-row-item">
+                    <h3>Name</h3>
+                </div>
+                <div class="large-row-item">
+                    <h3>Email</h3>
+                </div>
+                <div class="medium-row-item">
+                    <h3>Address</h3>
+                </div>
+            </div>
+            {{#each data}}
+              <div class="row">
+                  <div class="medium-row-item">
+                      <p>{{ this.first_name }} {{ this.last_name }}</p>
+                  </div>
+                  <div class="large-row-item">
+                      <p>{{ this.email }}</p>
+                  </div>
+                  <div class="medium-row-item">
+                      <p>{{ this.address }}</p>
+                  </div>
+                  <div class="button-container">
+                      <button class="edit-button">Update</button>
+                      <button class="delete-button">Delete</button>
+                  </div>
+              </div>
+            {{/each}}
+        </div>
+    </div>
+</div>

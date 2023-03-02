@@ -1,0 +1,56 @@
+<div id="body">
+    <div class="data-entry">
+        <div class="datat-title">
+            <h2>Create Entry</h2>
+        </div>
+        <form action="">
+            <label for="size">Size</label><br>
+            <input type="text" name="size"><br>
+
+            <label for="price">Price</label><br>
+            <input type="text" name="price"><br>
+
+            <label for="inventory">Inventory</label><br>
+            <input type="text" name="inventory"><br>
+
+            <div class="submit-button-container">
+                <button id="submitButton">Submit</button>
+            </div>
+        </form>
+    </div>
+    <div class="data-display">
+
+        <h2>Frames</h2>
+
+        <div class="title-row">
+            <div class="medium-row-item">
+                <h3>Size</h3>
+            </div>
+            <div class="medium-row-item">
+                <h3>Price</h3>
+            </div>
+            <div class="medium-row-item">
+                <h3>Inventory</h3>
+            </div>
+        </div>
+
+        {{#each data}}
+            <div class="row">
+                <div class="medium-row-item">
+                    <p>{{this.frame_id}}</p>
+                </div>
+                <div class="medium-row-item">
+                    <p>${{this.price}}</p>
+                </div>
+                <div class="medium-row-item">
+                    <p>{{this.inventory}}</p>
+                </div>
+                <div class="button-container">
+                    <button class="edit-button">Update</button>
+                    <button class="delete-button">Delete</button>
+                </div>
+            </div>
+        {{/each}}
+    
+    </div>
+</div>

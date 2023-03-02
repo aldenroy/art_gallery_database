@@ -8,10 +8,10 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(express.static('public'))
 
-//serves stactic files like CSS from the public directory
+//Serves stactic files like CSS from the public directory
 app.use(express.static('public'));
 
-//loads handlebars module
+//Loads handlebars module
 var handlebars = require('express-handlebars');
 
 
@@ -23,32 +23,82 @@ app.engine('hbs', handlebars.engine({
 }));
 app.set('view engine', 'hbs');
 
-//set up database file from connector
-var db = require('./db-connector.js');
+//Set up database file from connector
+var db = require('./database/db-connector.js');
 
-//routing
+//===== ROUTING =====
+
+//REQUEST FOR INDEX PAGE
 app.get('/', function (req, res) {
     res.render('index', {title: 'Home'});
 });
 
+//REQUESTS FOR ARTISTS PAGE
 app.get('/artists', function (req, res) {
-    res.render('artists', {title: 'Artists'});
+
+    //Defines a query to select all artists from the patron table
+    let query1 = 'SELECT * FROM Patrons WHERE is_artist = 1';
+
+    //Exicutes query
+    db.pool.query(query1, function (err, results, fields){
+
+        //Renders artist page with requested data
+        res.render('artists', {title: 'Artists', data: results});
+    });
 });
 
+//REQUESTS FOR FRAMES PAGE
 app.get('/frames', function (req, res) {
-    res.render('frames', {title: 'Frames'});
+
+    //defines query to select all Frames table 
+    let query1 = 'SELECT * FROM Frames'
+
+     //Exicutes query
+     db.pool.query(query1, function (err, results, fields){
+
+        //Renders frames page with requested data
+        res.render('frames', {title: 'Frames', data: results});
+    });
 });
 
+//REQUEST FOR ARTWORKS PAGE
 app.get('/artwork', function (req, res) {
-    res.render('artwork', {title: 'Artwork'});
+
+    //defines query to select all artworks table
+    //NEED TO BE JOINED WITH ARTIST TABLE
+    let query1 = 'SELECT * FROM Artworks'
+
+     //Exicutes query
+     db.pool.query(query1, function (err, results, fields){
+
+        //Renders artwork page with requested data
+        res.render('artwork', {title: 'Artwork', data: results});
+    });
 });
 
+//REQUESTS FOR PATRONS PAGE
 app.get('/patrons', function (req, res) {
-    res.render('patrons', {title: 'Patrons'});
+
+    //Defines a query to select all people from the patron table
+    let query1 = 'SELECT * FROM Patrons';
+
+    db.pool.query(query1, function (err, results, fields){
+
+        //Renders artist page with requested data
+        res.render('patrons', {title: 'Patrons', data: results});
+    });
 });
 
+//REQUEST FOR TRANSACTIONS PAGE
 app.get('/transactions', function (req, res) {
-    res.render('transactions', {title: 'Transactions'});
+    //Defines a query to select data reguarding each transaction
+    let query1 = 'SELECT Transactions.date AS Transactions, Frames.price AS Frames FROM Transactions JOIN Transactions_Has_Frames ON Transaction.transaction_id = Transactions_Has_Frames.transaction_id JOIN Frames ON Frames.frame_id = Transactions_Has_Frames.frame_id';
+
+    db.pool.query(query1, function (err, results, fields){
+
+        //Renders artist page with requested data
+        res.render('transactions', {title: 'Transactions', data: results});
+    });
 });
 
 const { query } = require('express');
