@@ -113,6 +113,7 @@ const { query } = require('express');
 //     })
 // });
 
+//NOT SURE WE ACTUALLY NEED THIS
 app.post('/add-patron-set-form', function (req, res) {
     let data = req.body;
     let query1 = `INSERT INTO Patrons (first_name, last_name, email, address) \
@@ -142,6 +143,43 @@ app.post('/add-patron-set-form', function (req, res) {
     });
 });
 
+app.post('/add-patron-form', function(req, res){
+    // Capture the incoming data and parse it back to a JS object
+    let data = req.body;
+
+    // // Capture NULL values
+    // let address = parseInt(data['address']);
+    // if (isNaN(address))
+    // {
+    //     address = 'NULL'
+    // }
+
+    // let email = parseInt(data['email']);
+    // if (isNaN(email))
+    // {
+    //     email = 'NULL'
+    // }
+
+    // Create the query and run it on the database
+    query1 = `INSERT INTO Patrons (first_name, last_name, email, address) VALUES ('${data['email']}', '${data['input-fname']}', '${data['input-lname']}', '${data['address']}')`;
+    db.pool.query(query1, function(error, rows, fields){
+
+        // Check to see if there was an error
+        if (error) {
+
+            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+            console.log(error)
+            res.sendStatus(400);
+        }
+
+        // If there was no error, we redirect back to our root route, which automatically runs the SELECT * FROM bsg_people and
+        // presents it on the screen
+        else
+        {
+            res.redirect('/patrons');
+        }
+    })
+})
 
 
 
