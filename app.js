@@ -103,16 +103,6 @@ app.get('/transactions', function (req, res) {
 
 const { query } = require('express');
 
-
-//Things Connor hasn't wrapped his head around
-
-// app.get('/patrons', function (req, res) {
-//     let query1 = "SELECT patron_id, first_name, last_name, email, address, is_artist FROM Patrons;";
-//     db.pool.query(query1, function (error, rows, fields) {
-//         res.render('patrons', { data: rows });
-//     })
-// });
-
 //NOT SURE WE ACTUALLY NEED THIS
 app.post('/add-patron-set-form', function (req, res) {
     let data = req.body;
@@ -181,7 +171,32 @@ app.post('/add-patron-form', function(req, res){
     })
 })
 
+// Citation for the following code:
+// Date: 2023/03/02
+// Copied and adapted from OSU GitHub (osu-cs340-ecampus) project (Dynamically Deleting Data)
+// Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%207%20-%20Dynamically%20Deleting%20Data
 
+app.delete('/delete-person-ajax/', function(req,res,next){
+    let data = req.body;
+    let personID = parseInt(data.id);
+    let deleteBsg_Cert_People = `DELETE FROM Patrons WHERE patron_id = ?`;
+    // let deleteBsg_People= `DELETE FROM bsg_people WHERE id = ?`;
+  
+  
+          // Run the 1st query
+          db.pool.query(deleteBsg_Cert_People, [personID], function(error, rows, fields){
+              if (error) {
+  
+              // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+              console.log(error);
+              res.sendStatus(400);
+              }
+  
+              else
+              {
+                res.sendStatus(204);
+              }
+  })});
 
 
 
