@@ -151,7 +151,7 @@ app.post('/add-patron-form', function(req, res){
     // }
 
     // Create the query and run it on the database
-    query1 = `INSERT INTO Patrons (first_name, last_name, email, address) VALUES ('${data['email']}', '${data['input-fname']}', '${data['input-lname']}', '${data['address']}')`;
+    query1 = `INSERT INTO Patrons (first_name, last_name, email, address) VALUES ('${data['input-fname']}', '${data['input-lname']}', '${data['email']}', '${data['address']}')`;
     db.pool.query(query1, function(error, rows, fields){
 
         // Check to see if there was an error
