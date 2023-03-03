@@ -180,7 +180,6 @@ app.delete('/delete-person-ajax/', function(req,res,next){
     let data = req.body;
     let personID = parseInt(data.id);
     let deleteBsg_Cert_People = `DELETE FROM Patrons WHERE patron_id = ?`;
-    // let deleteBsg_People= `DELETE FROM bsg_people WHERE id = ?`;
   
   
           // Run the 1st query
@@ -197,11 +196,6 @@ app.delete('/delete-person-ajax/', function(req,res,next){
                 res.sendStatus(204);
               }
   })});
-
-
-
-
-
 
 
 app.listen(PORT, function () {

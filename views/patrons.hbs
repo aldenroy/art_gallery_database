@@ -1,5 +1,3 @@
-<script src="./js/delete-patron.js"></script>
-
 <div id="body">
     <div class="data-entry">
         <div class="datat-title">
@@ -22,6 +20,35 @@
                 <button id="submitButton">Submit</button>
             </div>
         </form>
+
+        <div class="datat-title">
+            <h2>Update Entry</h2>
+        </div>
+        <form id="update-patron-form" method="POST" action="/update-patron-form">
+
+            <select name="input-fullname" id="mySelect">
+                <option value="test">Select a Person</option>
+                {{#each data}}
+                    <option value="{{this.id}}">{{this.first_name}} {{this.last_name}}</option>
+                {{/each}}
+            </select>
+            <label for="input-fname">First Name</label><br>
+            <input id="update-first-name" type="text" name="input-fname"><br>
+
+            <label for="input-lname">Last Name</label><br>
+            <input id="update-last-name" type="text" name="input-lname"><br>
+
+            <label for="email">Email</label><br>
+            <input id="update-email" type="text" name="email"><br>
+
+            <label for="address">Address</label><br>
+            <input id="update-address" type="text" name="address"><br>
+
+            <div class="submit-button-container">
+                <button type=""submit id="submitButton">Submit</button>
+            </div>
+        </form>
+
     </div>
     <div class="data-display">
         <h2>Patrons</h2>
@@ -42,23 +69,26 @@
         </div>
         {{#each data}}
             <div class="row" data-id={{this.patron_id}}>
-                <div class="medium-row-item">
+                <div class="medium-row-item first-name">
                     <p>{{this.first_name}}</p>
                 </div>
-                <div class="medium-row-item">
+                <div class="medium-row-item last-name">
                     <p>{{this.last_name}}</p>
                 </div>
-                <div class="large-row-item">
+                <div class="large-row-item email">
                     <p>{{this.email}}</p>
                 </div>
-                <div class="medium-row-item">
+                <div class="medium-row-item address">
                     <p>{{this.address}}</p>
                 </div>
                 <div class="button-container">
-                    <button class="edit-button">Update</button>
+                    <button onclick="updatePatron({{this.patron_id}})" class="edit-button">Update</button>
                     <button onclick="deletePatron({{this.patron_id}})"class="delete-button">Delete</button>
                 </div>
             </div>
         {{/each}}
     </div>
 </div>
+
+<script src="./js/delete-patron.js"></script>
+<script src="./js/update-patron.js"></script>

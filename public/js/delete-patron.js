@@ -42,7 +42,6 @@ function deleteRow(patron_id){
 
         //if the id of the current item matches the id of the selected item delete it 
         if (tableRows[i].getAttribute("data-id") == patron_id){
-            console.log('delete?')
             tableRows[i].remove();
             break;
         }
