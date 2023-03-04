@@ -206,10 +206,11 @@ app.delete('/delete-person-ajax/', function(req,res,next){
     let last_name = data.last_name
     let email = data.email
     let address = data.address
+    let patron_id = data.patron_id
   
     let queryUpdateInfo = `UPDATE Patrons SET first_name = ?, last_name = ?, email = ?, address = ? WHERE Patrons.patron_id = ?`;
           // Run the 1st query
-          db.pool.query(queryUpdateInfo, [first_name, last_name, email, address], function(error, rows, fields){
+          db.pool.query(queryUpdateInfo, [first_name, last_name, email, address, patron_id], function(error, rows, fields){
               if (error) {
   
               // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
@@ -218,16 +219,7 @@ app.delete('/delete-person-ajax/', function(req,res,next){
               }            
               else
               {
-                  // Run the second query
-                  db.pool.query(selectWorld, [homeworld], function(error, rows, fields) {
-  
-                      if (error) {
-                          console.log(error);
-                          res.sendStatus(400);
-                      } else {
-                          res.send(rows);
-                      }
-                  })
+                res.send(rows);
               }
 })});
 

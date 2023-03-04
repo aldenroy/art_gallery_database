@@ -30,12 +30,16 @@ updatePersonForm.addEventListener("submit", function (e) {
     e.preventDefault();
 
     // Get form fields we need to get data from
+    let mySelectNode = document.getElementById("mySelect");
     let firstNameNode = document.getElementById("update-first-name");
     let lastNameNode = document.getElementById("update-last-name");
     let emailNode = document.getElementById("update-email");
     let addressNode = document.getElementById("update-address");
 
+    console.log(mySelect);
+
     // Get the values from the form fields
+    let patronId = mySelectNode.value;
     let firstName = firstNameNode.value;
     let lastName = lastNameNode.value;
     let email = emailNode.value;
@@ -53,6 +57,7 @@ updatePersonForm.addEventListener("submit", function (e) {
 
     // Put our data we want to send in a javascript object
     let data = { 
+        patron_id: patronId,
         first_name: firstName,
         last_name: lastName,
         email: email,
