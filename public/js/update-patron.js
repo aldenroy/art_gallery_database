@@ -52,9 +52,9 @@ updatePersonForm.addEventListener("submit", function (e) {
 
 
     // Put our data we want to send in a javascript object
-    let data = {
-        firstName: firstName,
-        lastName: lastName,
+    let data = { 
+        first_name: firstName,
+        last_name: lastName,
         email: email,
         address: address
     }

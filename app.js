@@ -202,10 +202,10 @@ app.delete('/delete-person-ajax/', function(req,res,next){
   app.put('/put-person-ajax', function(req,res,next){
     let data = req.body;
   
-    let first_name = parseInt(data.first_name);
-    let last_name = parseInt(data.last_name);
-    let email = parseInt(data.email);
-    let address = parseInt(data.address);
+    let first_name = data.first_name
+    let last_name = data.last_name
+    let email = data.email
+    let address = data.address
   
     let queryUpdateInfo = `UPDATE Patrons SET first_name = ?, last_name = ?, email = ?, address = ? WHERE Patrons.patron_id = ?`;
           // Run the 1st query
