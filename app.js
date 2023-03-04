@@ -2,7 +2,7 @@ var express = require('express');
 
 //Create express app
 var app = express();
-PORT = 15646;
+PORT = 15647;
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
@@ -180,6 +180,7 @@ app.delete('/delete-person-ajax/', function(req,res,next){
     let data = req.body;
     let personID = parseInt(data.id);
     let deleteBsg_Cert_People = `DELETE FROM Patrons WHERE patron_id = ?`;
+    // let deleteBsg_People= `DELETE FROM bsg_people WHERE id = ?`;
   
   
           // Run the 1st query
@@ -196,6 +197,43 @@ app.delete('/delete-person-ajax/', function(req,res,next){
                 res.sendStatus(204);
               }
   })});
+
+
+  app.put('/put-person-ajax', function(req,res,next){
+    let data = req.body;
+  
+    let first_name = parseInt(data.first_name);
+    let last_name = parseInt(data.last_name);
+    let email = parseInt(data.email);
+    let address = parseInt(data.address);
+  
+    let queryUpdateInfo = `UPDATE Patrons SET first_name = ?, last_name = ?, email = ?, address = ? WHERE Patrons.patron_id = ?`;
+          // Run the 1st query
+          db.pool.query(queryUpdateInfo, [first_name, last_name, email, address], function(error, rows, fields){
+              if (error) {
+  
+              // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+              console.log(error);
+              res.sendStatus(400);
+              }            
+              else
+              {
+                  // Run the second query
+                  db.pool.query(selectWorld, [homeworld], function(error, rows, fields) {
+  
+                      if (error) {
+                          console.log(error);
+                          res.sendStatus(400);
+                      } else {
+                          res.send(rows);
+                      }
+                  })
+              }
+})});
+
+
+
+
 
 
 app.listen(PORT, function () {
