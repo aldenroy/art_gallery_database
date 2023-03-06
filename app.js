@@ -2,7 +2,7 @@ var express = require('express');
 
 //Create express app
 var app = express();
-PORT = 15647;
+PORT = 15648;
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
@@ -137,20 +137,6 @@ app.post('/add-patron-form', function(req, res){
     // Capture the incoming data and parse it back to a JS object
     let data = req.body;
 
-    // // Capture NULL values
-    // let address = parseInt(data['address']);
-    // if (isNaN(address))
-    // {
-    //     address = 'NULL'
-    // }
-
-    // let email = parseInt(data['email']);
-    // if (isNaN(email))
-    // {
-    //     email = 'NULL'
-    // }
-
-    // Create the query and run it on the database
     query1 = `INSERT INTO Patrons (first_name, last_name, email, address) VALUES ('${data['input-fname']}', '${data['input-lname']}', '${data['email']}', '${data['address']}')`;
     db.pool.query(query1, function(error, rows, fields){
 
@@ -223,9 +209,104 @@ app.delete('/delete-person-ajax/', function(req,res,next){
               }
 })});
 
+//fix
+app.post('/add-artwork-form', function(req, res){
+    // Capture the incoming data and parse it back to a JS object
+    let data = req.body;
+    query1 = `INSERT INTO Artworks (title, price, dimensions, medium, description) VALUES ('${data['title']}', '${data['price']}', '${data['dimensions']}', '${data['medium']}', '${data['description']}')`;
+    db.pool.query(query1, function(error, rows, fields){
+
+        // Check to see if there was an error
+        if (error) {
+
+            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+            console.log(error)
+            res.sendStatus(400);
+        }
+
+        // If there was no error, we redirect back to our root route, which automatically runs the SELECT * FROM bsg_people and
+        // presents it on the screen
+        else
+        {
+            res.redirect('/artwork');
+        }
+    })
+})
+
+
+app.post('/add-frame-form', function(req, res){
+    // Capture the incoming data and parse it back to a JS object
+    let data = req.body;
+
+    query1 = `INSERT INTO Frames (frame_id, price, inventory) VALUES ('${data['input-size']}', '${data['input-price']}', '${data['input-inventory']}')`;
+    db.pool.query(query1, function(error, rows, fields){
+
+        // Check to see if there was an error
+        if (error) {
+
+            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+            console.log(error)
+            res.sendStatus(400);
+        }
+
+        // If there was no error, we redirect back to our root route, which automatically runs the SELECT * FROM bsg_people and
+        // presents it on the screen
+        else
+        {
+            res.redirect('/frames');
+        }
+    })
+})
+
+
+app.put('/put-frame-ajax', function(req,res,next){
+    let data = req.body;
+  
+    let frame_id = data.frame_id
+    let size = data.size
+    let price = data.price
+    let inventory = data.inventory
+  
+    let queryUpdateInfo = `UPDATE Frames SET size = ?, price = ?, inventory = ? WHERE Frames.frame_id = ?`;
+          // Run the 1st query
+          db.pool.query(queryUpdateInfo, [size, price, inventory, frame_id], function(error, rows, fields){
+              if (error) {
+  
+              // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+              console.log(error);
+              res.sendStatus(400);
+              }            
+              else
+              {
+                res.send(rows);
+              }
+})});
 
 
 
+app.post('/add-artist-form', function(req, res){
+    // Capture the incoming data and parse it back to a JS object
+    let data = req.body;
+
+    query1 = `INSERT INTO Artists (first_name, last_name, email, address) VALUES ('${data['input-fname']}', '${data['input-lname']}', '${data['email']}', '${data['address']}')`;
+    db.pool.query(query1, function(error, rows, fields){
+
+        // Check to see if there was an error
+        if (error) {
+
+            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+            console.log(error)
+            res.sendStatus(400);
+        }
+
+        // If there was no error, we redirect back to our root route, which automatically runs the SELECT * FROM bsg_people and
+        // presents it on the screen
+        else
+        {
+            res.redirect('/artists');
+        }
+    })
+})
 
 
 app.listen(PORT, function () {

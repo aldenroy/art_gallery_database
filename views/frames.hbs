@@ -3,21 +3,42 @@
         <div class="datat-title">
             <h2>Create Entry</h2>
         </div>
-        <form action="">
-            <label for="size">Size</label><br>
-            <input type="text" name="size"><br>
+        <form id="add-frame-form" method="POST" action="/add-frame-form">
+            <label for="input-size">Size</label><br>
+            <input type="text" name="input-size"><br>
 
-            <label for="price">Price</label><br>
-            <input type="text" name="price"><br>
+            <label for="input-price">Price</label><br>
+            <input type="text" name="input-price"><br>
 
-            <label for="inventory">Inventory</label><br>
-            <input type="text" name="inventory"><br>
+            <label for="input-inventory">Inventory</label><br>
+            <input type="text" name="input-inventory"><br>
 
             <div class="submit-button-container">
                 <button id="submitButton">Submit</button>
             </div>
         </form>
     </div>
+        <form id="update-frame-form" method="POST" action="/update-frame-form">
+
+            <select name="input-size" id="mySelect">
+                <option value="test">Select a price and inventory</option>
+                {{#each data}}
+                    <option value="{{this.frame_id}}">${{this.price}} {{this.inventory}}</option>
+                {{/each}}
+            </select>
+            <label for="input-size">Size</label><br>
+            <input id="update-size" type="text" name="input-size"><br>
+
+            <label for="input-price">Price</label><br>
+            <input id="update-price" type="text" name="input-price"><br>
+
+            <label for="input-inventory">Inventory</label><br>
+            <input id="update-inventory" type="text" name="input-inventory"><br>
+
+            <div class="submit-button-container">
+                <button type=""submit id="submitButton">Submit</button>
+            </div>
+        </form>
     <div class="data-display">
 
         <h2>Frames</h2>
