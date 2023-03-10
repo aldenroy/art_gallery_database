@@ -6,12 +6,12 @@
         <form id="add-artwork-form" method="POST" action="/add-artwork-form">
             <label for="title">Title</label><br>
             <input type="text" name="title"><br>
-
+{{!-- 
             <label for="fname">First Name</label><br>
             <input type="text" name="fname"><br>
 
             <label for="lname">Last Name</label><br>
-            <input type="text" name="lname"><br>
+            <input type="text" name="lname"><br> --}}
 
             <label for="price">Price</label><br>
             <input type="text" name="price"><br>
@@ -19,8 +19,8 @@
             <label for="medium">Medium</label><br>
             <input type="text" name="medium"><br>
 
-            <label for="size">Size</label><br>
-            <input type="text" name="size"><br>
+            <label for="dimensions">Dimensions</label><br>
+            <input type="text" name="dimensions"><br>
 
             <label for="description">Description</label><br>
             <input type="text" name="description"><br>
@@ -38,9 +38,9 @@
             <div class="medium-row-item">
                 <h3>Title</h3>
             </div>
-            <div class="medium-row-item">
+            {{!-- <div class="medium-row-item">
                 <h3>Artist</h3>
-            </div>
+            </div> --}}
             <div class="small-row-item">
                 <h3>Price</h3>
             </div>
@@ -63,9 +63,9 @@
                 <div class="medium-row-item">
                     <p>{{this.title}}</p>
                 </div>
-                <div class="medium-row-item">
+                {{!-- <div class="medium-row-item">
                     <p>{{this.first_name}} {{this.last_name}}</p>
-                </div>
+                </div> --}}
                 <div class="small-row-item">
                     <p>${{this.price}}</p>
                 </div>

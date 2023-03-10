@@ -56,22 +56,24 @@
         </div>
 
         {{#each data}}
-            <div class="row">
-                <div class="medium-row-item">
+            <div class="row" data-id={{this.frame_id}}>
+                <div class="medium-row-item first-name">
                     <p>{{this.frame_id}}</p>
                 </div>
-                <div class="medium-row-item">
-                    <p>${{this.price}}</p>
+                <div class="medium-row-item last-name">
+                    <p>{{this.price}}</p>
                 </div>
-                <div class="medium-row-item">
+                <div class="large-row-item email">
                     <p>{{this.inventory}}</p>
                 </div>
                 <div class="button-container">
-                    <button class="edit-button">Update</button>
-                    <button class="delete-button">Delete</button>
+                    <button onclick="deletePatron({{this.frame_id}})"class="delete-button">Delete</button>
                 </div>
             </div>
         {{/each}}
     
     </div>
 </div>
+
+<script src="./js/delete-frames.js"></script>
+<script src="./js/update-frames.js"></script>

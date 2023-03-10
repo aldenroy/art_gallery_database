@@ -62,7 +62,3 @@ WHERE id = :frame_id_from_delete_form;
 
 
 
-
-
-
-
