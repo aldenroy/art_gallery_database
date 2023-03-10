@@ -21,9 +21,9 @@
         <form id="update-frame-form" method="POST" action="/update-frame-form">
 
             <select name="input-size" id="mySelect">
-                <option value="test">Select a price and inventory</option>
+                <option value="test">Select a size</option>
                 {{#each data}}
-                    <option value="{{this.frame_id}}">${{this.price}} {{this.inventory}}</option>
+                    <option value="{{this.frame_id}}">${{this.frame_id}}</option>
                 {{/each}}
             </select>
             <label for="input-size">Size</label><br>
