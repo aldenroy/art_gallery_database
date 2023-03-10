@@ -1,25 +1,3 @@
-// function  updatePatron(patron_id) {
-//     let tableRows = document.getElementsByClassName('row');
-//     let selectedRow
-
-//     // console.log(JSON.stringify(data));
-
-//     // iterate through selected rows
-//     // for (let i = 0; i < tableRows.length; i++){
- 
-//     //     if (tableRows[i].getAttribute("data-id") == patron_id){
-//     //         selectedRow = tableRows[i];
-//     //         break;
-//     //     }
-//     // }
-
-//     // let currentFisrtName = selectedRow.querySelector('.firstName').textContent;
-//     // let currentFisrtName = selectedRow.querySelector('.first-name').textContent;
-
-//     // console.log(currentFisrtName);
-
-// }
-
 // Get the objects we need to modify
 let updatePersonForm = document.getElementById('update-patron-form');
 

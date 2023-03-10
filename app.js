@@ -232,6 +232,8 @@ app.post('/add-artwork-form', function(req, res){
     //         res.redirect('/artwork');
     //     }
     // })
+        //no artist_id being inserted
+        //will need a read query for a first and last name based on artist_id
     query1 = `INSERT INTO Artworks (title, price, dimensions, medium, description) VALUES ('${data['title']}', '${data['price']}', '${data['dimensions']}', '${data['medium']}', '${data['description']}')`;
     db.pool.query(query1, function(error, rows, fields){
 
@@ -303,13 +305,14 @@ app.delete('/delete-frame-ajax/', function(req,res,next){
 app.put('/put-frame-ajax', function(req,res,next){
     let data = req.body;
   
+    let size = data.size
     let frame_id = data.frame_id
     let price = data.price
     let inventory = data.inventory
   
-    let queryUpdateInfo = `UPDATE Frames SET price = ?, inventory = ? WHERE Frames.frame_id = ?`;
+    let queryUpdateInfo = `UPDATE Frames SET frame_id = ?, price = ?, inventory = ? WHERE Frames.frame_id = ?`;
           // Run the 1st query
-          db.pool.query(queryUpdateInfo, [price, inventory, frame_id], function(error, rows, fields){
+          db.pool.query(queryUpdateInfo, [size, price, inventory, frame_id], function(error, rows, fields){
               if (error) {
   
               // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
@@ -348,7 +351,29 @@ app.post('/add-artist-form', function(req, res){
     })
 })
 
-
+app.put('/put-artist-ajax', function(req,res,next){
+    let data = req.body;
+  
+    let first_name = data.first_name
+    let last_name = data.last_name
+    let email = data.email
+    let address = data.address
+    let patron_id = data.patron_id
+  
+    let queryUpdateInfo = `UPDATE Patrons SET first_name = ?, last_name = ?, email = ?, address = ?, is_artist = 1 WHERE Patrons.patron_id = ?`;
+          // Run the 1st query
+          db.pool.query(queryUpdateInfo, [first_name, last_name, email, address, 1, patron_id], function(error, rows, fields){
+              if (error) {
+  
+              // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+              console.log(error);
+              res.sendStatus(400);
+              }            
+              else
+              {
+                res.send(rows);
+              }
+})});
 
 app.post('/add-transaction-form', function(req, res){
     // Capture the incoming data and parse it back to a JS object
