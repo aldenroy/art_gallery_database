@@ -214,24 +214,7 @@ app.post('/add-artwork-form', function(req, res){
     // Capture the incoming data and parse it back to a JS object
     let data = req.body;
     
-    // query_test = `SET FOREIGN_KEY_CHECKS = 0`;
-    // db.pool.query(query_test, function(error, rows, fields){
-    
-    //     // Check to see if there was an error
-    //     if (error) {
 
-    //         // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
-    //         console.log(error)
-    //         res.sendStatus(400);
-    //     }
-
-    //     // If there was no error, we redirect back to our root route, which automatically runs the SELECT * FROM bsg_people and
-    //     // presents it on the screen
-    //     else
-    //     {
-    //         res.redirect('/artwork');
-    //     }
-    // })
         //no artist_id being inserted
         //will need a read query for a first and last name based on artist_id
     query1 = `INSERT INTO Artworks (title, price, dimensions, medium, description) VALUES ('${data['title']}', '${data['price']}', '${data['dimensions']}', '${data['medium']}', '${data['description']}')`;
