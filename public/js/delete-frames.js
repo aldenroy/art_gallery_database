@@ -6,7 +6,7 @@
 function deleteFrame(frame_id) {
     // Put our data we want to send in a javascript object
     let data = {
-        id: frame_id
+        frame_id: frame_id
     };
 
     // Setup our AJAX request
