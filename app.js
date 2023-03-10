@@ -162,7 +162,7 @@ app.post('/add-patron-form', function(req, res){
 // Copied and adapted from OSU GitHub (osu-cs340-ecampus) project (Dynamically Deleting Data)
 // Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%207%20-%20Dynamically%20Deleting%20Data
 
-app.delete('/delete-person-ajax/', function(req,res,next){
+app.delete('/delete-patron-ajax/', function(req,res,next){
     let data = req.body;
     let personID = parseInt(data.id);
     let deleteBsg_Cert_People = `DELETE FROM Patrons WHERE patron_id = ?`;
@@ -184,8 +184,8 @@ app.delete('/delete-person-ajax/', function(req,res,next){
               }
   })});
 
-
-  app.put('/put-person-ajax', function(req,res,next){
+// inserts data patron update form into database
+  app.put('/update-patron-ajax', function(req,res,next){
     let data = req.body;
   
     let first_name = data.first_name
@@ -208,6 +208,25 @@ app.delete('/delete-person-ajax/', function(req,res,next){
                 res.send(rows);
               }
 })});
+
+// retrive the info of a single patron from the db to populate the update form
+app.put('/retrive-patron-info-ajax', function(req,res,next){
+    let data = req.body
+
+    let queryPatronInfo = `SELECT * From Patrons WHERE patron_id = ?`
+    console.log(data.patron_id)
+
+    db.pool.query(queryPatronInfo, [data.patron_id], function(error, data, fields){
+        if (error) {
+            console.log(error);
+            res.sendStatus(400);
+        }
+        else{
+            console.log("worked?")
+            res.send(data);
+        }
+    })
+});
 
 //fix
 app.post('/add-artwork-form', function(req, res){

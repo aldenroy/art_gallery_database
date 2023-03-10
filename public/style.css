@@ -132,6 +132,7 @@ nav{
     width: 100%;
     display: flex;
     justify-content: right;
+    gap: 1rem;
 }
 
 
@@ -200,4 +201,14 @@ nav{
     background-color: red;
     border-radius: 50%;
     margin-left: 0.8rem;
+}
+
+/* update forms */
+#currently-updating{
+    margin-bottom: 1rem;
+    padding-bottom: 0.25rem;
+    font-size: 1.2rem;
+    font-family: acumin-variable, sans-serif;
+    font-variation-settings: "slnt" 0, "wdth" 100, "wght" 400;
+    border-bottom: solid black 2px;
 }

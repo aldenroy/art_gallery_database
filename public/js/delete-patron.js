@@ -11,7 +11,7 @@ function deletePatron(patron_id) {
 
     // Setup our AJAX request
     var xhttp = new XMLHttpRequest();
-    xhttp.open("DELETE", "/delete-person-ajax", true);
+    xhttp.open("DELETE", "/delete-patron-ajax", true);
     xhttp.setRequestHeader("Content-type", "application/json");
 
     // Tell our AJAX request how to resolve
@@ -24,7 +24,8 @@ function deletePatron(patron_id) {
 
         }
         else if (xhttp.readyState == 4 && xhttp.status != 204) {
-            console.log("There was an error with the input.")
+            console.log("There was an error with the delete")
+            alert("Can not delete while patron has associated transactions or artworks")
         }
     }
     // Send the request and wait for the response

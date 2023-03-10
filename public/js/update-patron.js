@@ -1,45 +1,76 @@
-// function  updatePatron(patron_id) {
-//     let tableRows = document.getElementsByClassName('row');
-//     let selectedRow
-
-//     // console.log(JSON.stringify(data));
-
-//     // iterate through selected rows
-//     // for (let i = 0; i < tableRows.length; i++){
- 
-//     //     if (tableRows[i].getAttribute("data-id") == patron_id){
-//     //         selectedRow = tableRows[i];
-//     //         break;
-//     //     }
-//     // }
-
-//     // let currentFisrtName = selectedRow.querySelector('.firstName').textContent;
-//     // let currentFisrtName = selectedRow.querySelector('.first-name').textContent;
-
-//     // console.log(currentFisrtName);
-
-// }
-
 // Get the objects we need to modify
-let updatePersonForm = document.getElementById('update-patron-form');
+let updatePatronForm = document.getElementById('update-patron-form');
+let addPatronForm = document.getElementById('add-patron-form');
 
-// Modify the objects we need
-updatePersonForm.addEventListener("submit", function (e) {
-   
-    // Prevent the form from submitting
-    e.preventDefault();
+// replaces the create form with the update form
+function updatePatron(patron_id) {
 
-    // Get form fields we need to get data from
-    let mySelectNode = document.getElementById("mySelect");
+    let currentlyUpdatingNode = document.getElementById("currently-updating");
     let firstNameNode = document.getElementById("update-first-name");
     let lastNameNode = document.getElementById("update-last-name");
     let emailNode = document.getElementById("update-email");
     let addressNode = document.getElementById("update-address");
 
-    console.log(mySelect);
+    currentlyUpdatingNode.dataset.id = patron_id;
+
+    reqData = {
+        patron_id: patron_id
+    }
+
+    // Sends a request for current data to fill the update form
+    var xhttp = new XMLHttpRequest();
+    xhttp.open("PUT", "/retrive-patron-info-ajax", true);
+    xhttp.setRequestHeader("Content-type", "application/json");
+
+    // Tell our AJAX request how to resolve
+    xhttp.onreadystatechange = () => {
+        if (xhttp.readyState == 4 && xhttp.status == 200) {
+
+            //parse into JSON
+            let tempResData = JSON.parse(xhttp.response);
+            //remove relevent data from array
+            let resData = tempResData[0];
+            console.log(resData);
+
+            // populate the form with data
+            currentlyUpdatingNode.textContent = `${resData.first_name} ${resData.last_name}`
+            firstNameNode.value = resData.first_name;
+            lastNameNode.value = resData.last_name;
+            emailNode.value = resData.email;
+            addressNode.value = resData.address;
+
+        }
+        else if (xhttp.readyState == 4 && xhttp.status != 200) {
+            console.log("information not retrived")
+        }
+    }
+
+    // Send the request and wait for the response
+    xhttp.send(JSON.stringify(reqData));
+
+    //unhide update form
+    updatePatronForm.removeAttribute("hidden");
+
+    //hide add form
+    addPatronForm.setAttribute("hidden", "hidden");
+
+}
+
+// Modify the objects we need
+updatePatronForm.addEventListener("submit", function (e) {
+   
+    // Prevent the form from submitting
+    e.preventDefault();
+
+    // Get form fields we need to get data from
+    let currentlyUpdatingNode = document.getElementById("currently-updating");
+    let firstNameNode = document.getElementById("update-first-name");
+    let lastNameNode = document.getElementById("update-last-name");
+    let emailNode = document.getElementById("update-email");
+    let addressNode = document.getElementById("update-address");
 
     // Get the values from the form fields
-    let patronId = mySelectNode.value;
+    let patronId = currentlyUpdatingNode.dataset.id;
     let firstName = firstNameNode.value;
     let lastName = lastNameNode.value;
     let email = emailNode.value;
@@ -66,7 +97,7 @@ updatePersonForm.addEventListener("submit", function (e) {
     
     // Setup our AJAX request
     var xhttp = new XMLHttpRequest();
-    xhttp.open("PUT", "/put-person-ajax", true);
+    xhttp.open("PUT", "/update-patron-ajax", true);
     xhttp.setRequestHeader("Content-type", "application/json");
 
     // Tell our AJAX request how to resolve
