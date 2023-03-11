@@ -347,7 +347,7 @@ app.post('/add-artist-form', function(req, res){
     // Capture the incoming data and parse it back to a JS object
     let data = req.body;
 
-    query1 = `INSERT INTO Patrons (first_name, last_name, email, address, is_artist) VALUES ('${data['input-fname']}', '${data['input-lname']}', '${data['email']}', '${data['address']}', 1)` ;
+    query1 = `INSERT INTO Patrons (first_name, last_name, email, address, is_artist) VALUES ('${data['input-fname']}', '${data['input-lname']}', '${data['input-email']}', '${data['input-address']}', 1)` ;
     db.pool.query(query1, function(error, rows, fields){
 
         // Check to see if there was an error

@@ -25,6 +25,7 @@ function deleteFrame(frame_id) {
         }
         else if (xhttp.readyState == 4 && xhttp.status != 204) {
             console.log("There was an error with the input.")
+            alert("Can not delete while frame asociated with transaction")
         }
     }
     // Send the request and wait for the response
