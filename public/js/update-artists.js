@@ -1,6 +1,61 @@
 
 // Get the objects we need to modify
 let updateArtistForm = document.getElementById('update-artist-form');
+let addArtistForm = document.getElementById('add-artist-form');
+
+// replaces the create form with the update form
+function updateArtist(patron_id) {
+
+    let currentlyUpdatingNode = document.getElementById("currently-updating");
+    let firstNameNode = document.getElementById("update-first-name");
+    let lastNameNode = document.getElementById("update-last-name");
+    let emailNode = document.getElementById("update-email");
+    let addressNode = document.getElementById("update-address");
+
+    currentlyUpdatingNode.dataset.id = patron_id;
+
+    reqData = {
+        patron_id: patron_id
+    }
+
+    // Sends a request for current data to fill the update form
+    var xhttp = new XMLHttpRequest();
+    xhttp.open("PUT", "/retrive-patron-info-ajax", true);
+    xhttp.setRequestHeader("Content-type", "application/json");
+
+    // Tell our AJAX request how to resolve
+    xhttp.onreadystatechange = () => {
+        if (xhttp.readyState == 4 && xhttp.status == 200) {
+
+            //parse into JSON
+            let tempResData = JSON.parse(xhttp.response);
+            //remove relevent data from array
+            let resData = tempResData[0];
+            console.log(resData);
+
+            // populate the form with data
+            currentlyUpdatingNode.textContent = `${resData.first_name} ${resData.last_name}`
+            firstNameNode.value = resData.first_name;
+            lastNameNode.value = resData.last_name;
+            emailNode.value = resData.email;
+            addressNode.value = resData.address;
+
+        }
+        else if (xhttp.readyState == 4 && xhttp.status != 200) {
+            console.log("information not retrived")
+        }
+    }
+
+    // Send the request and wait for the response
+    xhttp.send(JSON.stringify(reqData));
+
+    //unhide update form
+    updateArtistForm.removeAttribute("hidden");
+
+    //hide add form
+    addArtistForm.setAttribute("hidden", "hidden");
+
+}
 
 // Modify the objects we need
 updateArtistForm.addEventListener("submit", function (e) {
@@ -9,16 +64,14 @@ updateArtistForm.addEventListener("submit", function (e) {
     e.preventDefault();
 
     // Get form fields we need to get data from
-    let mySelectNode = document.getElementById("mySelect");
+    let currentlyUpdatingNode = document.getElementById('currently-updating');
     let firstNameNode = document.getElementById("update-first-name");
     let lastNameNode = document.getElementById("update-last-name");
     let emailNode = document.getElementById("update-email");
     let addressNode = document.getElementById("update-address");
 
-    console.log(mySelect);
-
     // Get the values from the form fields
-    let patronId = mySelectNode.value;
+    let patronId = currentlyUpdatingNode.dataset.id;
     let firstName = firstNameNode.value;
     let lastName = lastNameNode.value;
     let email = emailNode.value;

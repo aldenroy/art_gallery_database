@@ -214,7 +214,6 @@ app.put('/retrive-patron-info-ajax', function(req,res,next){
     let data = req.body
 
     let queryPatronInfo = `SELECT * From Patrons WHERE patron_id = ?`
-    console.log(data.patron_id)
 
     db.pool.query(queryPatronInfo, [data.patron_id], function(error, data, fields){
         if (error) {
@@ -222,7 +221,6 @@ app.put('/retrive-patron-info-ajax', function(req,res,next){
             res.sendStatus(400);
         }
         else{
-            console.log("worked?")
             res.send(data);
         }
     })
@@ -304,17 +302,16 @@ app.delete('/delete-frame-ajax/', function(req,res,next){
   })});
 
 
-app.put('/put-frame-ajax', function(req,res,next){
+app.put('/update-frame-ajax', function(req,res,next){
     let data = req.body;
   
-    let size = data.size
     let frame_id = data.frame_id
     let price = data.price
     let inventory = data.inventory
   
-    let queryUpdateInfo = `UPDATE Frames SET frame_id = ?, price = ?, inventory = ? WHERE Frames.frame_id = ?`;
+    let queryUpdateInfo = `UPDATE Frames SET price = ?, inventory = ? WHERE Frames.frame_id = ?`;
           // Run the 1st query
-          db.pool.query(queryUpdateInfo, [size, price, inventory, frame_id], function(error, rows, fields){
+          db.pool.query(queryUpdateInfo, [price, inventory, frame_id], function(error, rows, fields){
               if (error) {
   
               // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
@@ -326,6 +323,23 @@ app.put('/put-frame-ajax', function(req,res,next){
                 res.send(rows);
               }
 })});
+
+// retrive the info of a single frame from the db to populate the update form
+app.put('/retrive-frame-info-ajax', function(req,res,next){
+    let data = req.body
+
+    let queryFrameInfo = `SELECT * FROM Frames WHERE frame_id = ?`
+
+    db.pool.query(queryFrameInfo, [data.frame_id], function(error, data, fields){
+        if (error) {
+            console.log(error);
+            res.sendStatus(400);
+        }
+        else{
+            res.send(data);
+        }
+    })
+});
 
 
 
@@ -376,6 +390,23 @@ app.put('/put-artist-ajax', function(req,res,next){
                 res.send(rows);
               }
 })});
+
+// retrive the info of a single patron from the db to populate the update form
+app.put('/retrive-artist-info-ajax', function(req,res,next){
+    let data = req.body
+
+    let queryArtistInfo = `SELECT * From Patrons WHERE is_artist = 1 AND patron_id = ?`
+
+    db.pool.query(queryArtistInfo, [data.patron_id], function(error, data, fields){
+        if (error) {
+            console.log(error);
+            res.sendStatus(400);
+        }
+        else{
+            res.send(data);
+        }
+    })
+});
 
 app.post('/add-transaction-form', function(req, res){
     // Capture the incoming data and parse it back to a JS object

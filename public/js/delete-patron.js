@@ -19,7 +19,6 @@ function deletePatron(patron_id) {
         if (xhttp.readyState == 4 && xhttp.status == 204) {
 
             // Add the new data to the table
-            console.log("here");
             deleteRow(patron_id);
 
         }

@@ -1,34 +1,39 @@
 <div id="body">
     <div class="data-entry">
-        <div class="datat-title">
-            <h2>Create Entry</h2>
-        </div>
         <form id="add-artist-form" method="POST" action="/add-artist-form">
+
+            <div class="datat-title">
+                <h2>Create Entry</h2>
+            </div>
+
             <label for="input-fname">First Name</label><br>
             <input type="text" name="input-fname"><br>
 
             <label for="input-lname">Last Name</label><br>
             <input type="text" name="input-lname"><br>
 
-            <label for="email">Email</label><br>
-            <input type="text" name="email"><br>
+            <label for="input-email">Email</label><br>
+            <input type="text" name="input-email"><br>
 
-            <label for="address">Address</label><br>
-            <input type="text" name="address"><br>
+            <label for="input-address">Address</label><br>
+            <input type="text" name="input-address"><br>
 
             <div class="submit-button-container">
-                <button id="submitButton">Submit</button>
+                <button type="cancel" id="submitButton">Cancle</button>
+                <button type="submit" id="submitButton">Submit</button>
             </div>
         </form>
 
-        <form id="update-artist-form" method="POST" action="/update-artist-form">
+        <form id="update-artist-form" method="POST" action="/update-artist-form" hidden>
 
-            <select name="input-fullname" id="mySelect">
-                <option value="test">Select a Person</option>
-                {{#each data}}
-                    <option value="{{this.patron_id}}">{{this.first_name}} {{this.last_name}}</option>
-                {{/each}}
-            </select>
+            <div class="data-title">
+                <h2>Update</h2>
+            </div>
+
+            <div data-id="" id="currently-updating">
+                Placeholder Name
+            </div>
+
             <label for="input-fname">First Name</label><br>
             <input id="update-first-name" type="text" name="input-fname"><br>
 
@@ -61,7 +66,7 @@
                 </div>
             </div>
             {{#each data}}
-              <div class="row">
+              <div class="row" data-id={{this.patron_id}}>
                   <div class="medium-row-item">
                       <p>{{ this.first_name }} {{ this.last_name }}</p>
                   </div>
@@ -72,9 +77,9 @@
                       <p>{{ this.address }}</p>
                   </div>
                   <div class="button-container">
-                      <button class="edit-button">Update</button>
-                      <button class="delete-button">Delete</button>
-                  </div>
+                    <button onclick="updateArtist({{this.patron_id}})" class="edit-button">Update</button>
+                    <button onclick="deleteArtist({{this.patron_id}})"class="delete-button">Delete</button>
+                </div>
               </div>
             {{/each}}
         </div>
