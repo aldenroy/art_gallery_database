@@ -1,6 +1,6 @@
 // Citation for the following code:
 // Date: 2023/03/02
-// Copied and adapted from OSU GitHub (osu-cs340-ecampus) project (Dynamically Deleting Data)
+// Copied and adapted from OSU GitHub (osu-cs340-ecampus) project
 // Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%207%20-%20Dynamically%20Deleting%20Data
 
 function deletePatron(patron_id) {

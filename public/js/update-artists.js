@@ -1,4 +1,7 @@
-
+// Citation for the following code:
+// Date: 2023/03/02
+// Copied and adapted from OSU GitHub (osu-cs340-ecampus) project (Dynamically Deleting Data)
+// Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%207%20-%20Dynamically%20Deleting%20Data
 // Get the objects we need to modify
 let updateArtistForm = document.getElementById('update-artist-form');
 let addArtistForm = document.getElementById('add-artist-form');

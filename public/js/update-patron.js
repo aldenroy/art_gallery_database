@@ -1,4 +1,8 @@
 // Get the objects we need to modify
+// Citation for the following code:
+// Date: 2023/03/02
+// Copied and adapted from OSU GitHub (osu-cs340-ecampus) project (Dynamically Deleting Data)
+// Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%207%20-%20Dynamically%20Deleting%20Data
 let updatePatronForm = document.getElementById('update-patron-form');
 let addPatronForm = document.getElementById('add-patron-form');
 
