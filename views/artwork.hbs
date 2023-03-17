@@ -64,8 +64,7 @@
                     <p>{{this.title}}</p>
                 </div>
                 <div class="medium-row-item">
-                    {{!-- <p>{{this.first_name}} {{this.last_name}}</p> --}}
-                    <p>{{this.artist_id}}</p>
+                    <p>{{this.first_name}} {{this.last_name}}</p>
                 </div>
                 <div class="small-row-item">
                     <p>${{this.price}}</p>
@@ -90,11 +89,14 @@
                 {{/if}}
             
                 <div class="button-container">
-                    <button class="edit-button">Update</button>
-                    <button class="delete-button">Delete</button>
+                    {{!-- <button onclick="updateFrame('{{this.frame_id}}')" class="edit-button">Update</button> --}}
+                    <button onclick="deleteArtowrk('{{this.artwork_id}}')" class="delete-button">Delete</button>
                 </div>
             </div>
         {{/each}}
         
     </div>
 </div>
+
+<script src="./js/delete-artwork.js"></script>
+<script src="./js/update-artowrk.js"></script>

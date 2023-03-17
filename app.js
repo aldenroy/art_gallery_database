@@ -65,8 +65,7 @@ app.get('/frames', function (req, res) {
 app.get('/artwork', function (req, res) {
 
     //defines query to select all artworks table
-    //NEED TO BE JOINED WITH ARTIST TABLE
-    let query1 = 'SELECT * FROM Artworks'
+    let query1 = 'SELECT Artworks.*, Patrons.first_name, Patrons.last_name FROM Artworks JOIN Patrons ON Artworks.artist_id = Patrons.patron_id WHERE Patrons.is_artist = 1;'
 
      //Exicutes query
      db.pool.query(query1, function (err, results, fields){
@@ -165,12 +164,11 @@ app.post('/add-patron-form', function(req, res){
 app.delete('/delete-patron-ajax/', function(req,res,next){
     let data = req.body;
     let personID = parseInt(data.id);
-    let deleteBsg_Cert_People = `DELETE FROM Patrons WHERE patron_id = ?`;
-    // let deleteBsg_People= `DELETE FROM bsg_people WHERE id = ?`;
+    let deletePatron = `DELETE FROM Patrons WHERE patron_id = ?`;
   
   
           // Run the 1st query
-          db.pool.query(deleteBsg_Cert_People, [personID], function(error, rows, fields){
+          db.pool.query(deletePatron, [personID], function(error, rows, fields){
               if (error) {
   
               // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
@@ -253,6 +251,26 @@ app.post('/add-artwork-form', function(req, res){
         }
     })
 })
+
+app.delete('/delete-artwork-ajax/', function(req,res,next){
+    let data = req.body;
+    let personID = parseInt(data.id);
+    let deleteArtwork = `DELETE FROM Artworks WHERE artist_id = ?`;
+  
+          // Run the 1st query
+          db.pool.query(deleteArtwork, [personID], function(error, rows, fields){
+              if (error) {
+  
+              // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+              console.log(error);
+              res.sendStatus(400);
+              }
+  
+              else
+              {
+                res.sendStatus(204);
+              }
+  })});
 
 
 app.post('/add-frame-form', function(req, res){
