@@ -66,7 +66,7 @@ app.get('/artwork', function (req, res) {
 
     //defines query to select all artworks table
     //NEED TO BE JOINED WITH ARTIST TABLE
-    let query1 = 'SELECT * FROM Artworks'
+    let query1 = 'SELECT Artworks.*, Patrons.first_name, Patrons.last_name FROM Artworks JOIN Patrons ON Artworks.artist_id = Patrons.patron_id WHERE Patrons.is_artist = 1;'
 
      //Exicutes query
      db.pool.query(query1, function (err, results, fields){
