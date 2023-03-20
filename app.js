@@ -270,13 +270,57 @@ app.post('/add-artwork-form', function(req, res){
     })
 })
 
+// inserts data from artwork update form into database
+app.put('/update-artwork-ajax', function(req,res,next){
+    let data = req.body;
+
+    let artwork_id = data.artwork_id
+    let title = data.title
+    let artist_id = data.artist_id
+    let price = data.price
+    let medium = data.medium
+    let dimensions = data.dimensions
+    let description = data.description
+  
+    let queryUpdateInfo = `UPDATE Artworks SET title = ?, artist_id = ?, price = ?, medium = ?, dimensions = ?, description = ? WHERE Artworks.artwork_id = ?`;
+          // Run the 1st query
+          db.pool.query(queryUpdateInfo, [title, artist_id, price, medium, dimensions, description, artwork_id], function(error, rows, fields){
+              if (error) {
+  
+              // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+              console.log(error);
+              res.sendStatus(400);
+              }            
+              else
+              {
+                res.send(rows);
+              }
+})});
+
+// retrive the info of a single artwork from the db to populate the update form
+app.put('/retrive-artwork-info-ajax', function(req,res,next){
+    let data = req.body
+
+    let queryArtworkInfo = `SELECT * From Artworks WHERE artwork_id = ?`
+
+    db.pool.query(queryArtworkInfo, [data.artwork_id], function(error, data, fields){
+        if (error) {
+            console.log(error);
+            res.sendStatus(400);
+        }
+        else{
+            res.send(data);
+        }
+    })
+});
+
 app.delete('/delete-artwork-ajax/', function(req,res,next){
     let data = req.body;
-    let personID = parseInt(data.artwork_id);
+    let artwork_id = parseInt(data.artwork_id);
     let deleteArtwork = `DELETE FROM Artworks WHERE artwork_id = ?`;
   
           // Run the 1st query
-          db.pool.query(deleteArtwork, [personID], function(error, rows, fields){
+          db.pool.query(deleteArtwork, [artwork_id], function(error, rows, fields){
               if (error) {
   
               // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.

@@ -29,8 +29,46 @@
 
             <div class="submit-button-container">
                 <button id="submitButton">Submit</button>
+            </div>   
+        </form>
+
+        <form id="update-artwork-form" method="POST" action="/update-artwork-form" hidden>
+            <div class="data-title">
+                <h2>Update</h2>
+            </div>
+
+            <div data-id="" id="currently-updating">
+                Placeholder Name
+            </div>
+            <label for="update-title">Title</label><br>
+            <input id="update-title" type="text" name="update-title"><br>
+
+            <label for="update-artist">Artist</label><br>
+            <select name="update-artist" id="update-artist">
+                <option value="">Select an Artist</option>
+                {{#each artists}}
+                <option value="{{this.patron_id}}">{{this.first_name}} {{this.last_name}}</option>
+                {{/each}}
+             </select>
+
+            <label for="update-price">Price</label><br>
+            <input id="update-price" type="text" name="update-price"><br>
+
+            <label for="update-medium">Medium</label><br>
+            <input id="update-medium" type="text" name="update-medium"><br>
+
+            <label for="update-dimensions">Dimensions</label><br>
+            <input id="update-dimensions" type="text" name="update-dimensions"><br>
+
+            <label for="update-description">Description</label><br>
+            <input id="update-description" type="text" name="update-description"><br>
+
+            <div class="submit-button-container">
+                <button type="cancel" id="submitButton">Cancle</button>
+                <button type="submit" id="submitButton">Submit</button>
             </div>
         </form>
+
     </div>
     <div class="data-display">
 
@@ -91,7 +129,7 @@
                 {{/if}}
             
                 <div class="button-container">
-                    {{!-- <button onclick="updateFrame('{{this.frame_id}}')" class="edit-button">Update</button> --}}
+                    <button onclick="updateArtwork('{{this.artwork_id}}')" class="edit-button">Update</button>
                     <button onclick="deleteArtwork('{{this.artwork_id}}')" class="delete-button">Delete</button>
                 </div>
             </div>
