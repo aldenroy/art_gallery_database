@@ -458,7 +458,7 @@ app.put('/put-artist-ajax', function(req,res,next){
   
     let queryUpdateInfo = `UPDATE Patrons SET first_name = ?, last_name = ?, email = ?, address = ?, is_artist = 1 WHERE Patrons.patron_id = ?`;
           // Run the 1st query
-          db.pool.query(queryUpdateInfo, [first_name, last_name, email, address, 1, patron_id], function(error, rows, fields){
+          db.pool.query(queryUpdateInfo, [first_name, last_name, email, address, patron_id], function(error, rows, fields){
               if (error) {
   
               // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
