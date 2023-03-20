@@ -65,13 +65,31 @@ app.get('/frames', function (req, res) {
 app.get('/artwork', function (req, res) {
 
     //defines query to select all artworks table
-    let query1 = 'SELECT Artworks.*, Patrons.first_name, Patrons.last_name FROM Artworks JOIN Patrons ON Artworks.artist_id = Patrons.patron_id WHERE Patrons.is_artist = 1;'
+    let queryArtworks = 'SELECT Artworks.*, Patrons.first_name, Patrons.last_name FROM Artworks JOIN Patrons ON Artworks.artist_id = Patrons.patron_id WHERE Patrons.is_artist = 1;'
+    let queryArtists = 'SELECT * FROM Patrons WHERE is_artist = 1'
 
      //Exicutes query
-     db.pool.query(query1, function (err, results, fields){
+     db.pool.query(queryArtworks, function (error, artworkResults, fields){
 
-        //Renders artwork page with requested data
-        res.render('artwork', {title: 'Artwork', data: results});
+        // Check to see if there was an error
+        if (error) {
+            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+            console.log(error)
+            res.sendStatus(400);
+        }
+        else{
+            db.pool.query(queryArtists, function (error, artistResults, fields){
+                if (error) {
+                    // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+                    console.log(error)
+                    res.sendStatus(400);
+                }
+                else{
+                    //Renders artwork page with requested data
+                    res.render('artwork', {title: 'Artwork', artwork: artworkResults, artists: artistResults});
+                }
+            });
+        }
     });
 });
 
@@ -94,7 +112,7 @@ app.get('/transactions', function (req, res) {
     let query1 = 'SELECT Transactions.date AS Transactions, Frames.price AS Frames FROM Transactions JOIN Transactions_Has_Frames ON Transaction.transaction_id = Transactions_Has_Frames.transaction_id JOIN Frames ON Frames.frame_id = Transactions_Has_Frames.frame_id';
 
     db.pool.query(query1, function (err, results, fields){
-
+        
         //Renders artist page with requested data
         res.render('transactions', {title: 'Transactions', data: results});
     });
@@ -224,15 +242,15 @@ app.put('/retrive-patron-info-ajax', function(req,res,next){
     })
 });
 
-//fix
+
 app.post('/add-artwork-form', function(req, res){
     // Capture the incoming data and parse it back to a JS object
     let data = req.body;
-    
 
+    console.log(data);
         //no artist_id being inserted
         //will need a read query for a first and last name based on artist_id
-    query1 = `INSERT INTO Artworks (title, price, dimensions, medium, description) VALUES ('${data['title']}', '${data['price']}', '${data['dimensions']}', '${data['medium']}', '${data['description']}')`;
+    let query1 = `INSERT INTO Artworks (title, artist_id, price, dimensions, medium, description) VALUES ('${data['title']}', '${data['artist']}', '${data['price']}', '${data['dimensions']}', '${data['medium']}', '${data['description']}')`;
     db.pool.query(query1, function(error, rows, fields){
 
         // Check to see if there was an error
@@ -254,8 +272,8 @@ app.post('/add-artwork-form', function(req, res){
 
 app.delete('/delete-artwork-ajax/', function(req,res,next){
     let data = req.body;
-    let personID = parseInt(data.id);
-    let deleteArtwork = `DELETE FROM Artworks WHERE artist_id = ?`;
+    let personID = parseInt(data.artwork_id);
+    let deleteArtwork = `DELETE FROM Artworks WHERE artwork_id = ?`;
   
           // Run the 1st query
           db.pool.query(deleteArtwork, [personID], function(error, rows, fields){

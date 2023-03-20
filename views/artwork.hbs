@@ -7,11 +7,13 @@
             <label for="title">Title</label><br>
             <input type="text" name="title"><br>
 
-            <label for="fname">First Name</label><br>
-            <input type="text" name="fname"><br>
-
-            <label for="lname">Last Name</label><br>
-            <input type="text" name="lname"><br>
+            <label for="artist">Artist</label><br>
+            <select name="artist" id="artist-ajax">
+                <option value="">Select an Artist</option>
+                {{#each artists}}
+                <option value="{{this.patron_id}}">{{this.first_name}} {{this.last_name}}</option>
+                {{/each}}
+             </select>
 
             <label for="price">Price</label><br>
             <input type="text" name="price"><br>
@@ -58,8 +60,8 @@
             </div>
         </div>
 
-        {{#each data}}
-            <div class="row">
+        {{#each artwork}}
+            <div class="row" data-id={{this.artwork_id}}>
                 <div class="medium-row-item">
                     <p>{{this.title}}</p>
                 </div>
@@ -90,7 +92,7 @@
             
                 <div class="button-container">
                     {{!-- <button onclick="updateFrame('{{this.frame_id}}')" class="edit-button">Update</button> --}}
-                    <button onclick="deleteArtowrk('{{this.artwork_id}}')" class="delete-button">Delete</button>
+                    <button onclick="deleteArtwork('{{this.artwork_id}}')" class="delete-button">Delete</button>
                 </div>
             </div>
         {{/each}}
